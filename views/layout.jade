@@ -1,11 +1,13 @@
 doctype 5
 html
   head
+    link(rel='stylesheet', href='/stylesheets/styles.css')
     block head
       title My template
   body
-    block content
-      h1 Content goes here
-    block foot
-      #footer
-        p some footer content
+    #main
+      block content
+        h1 Content goes here
+      block foot
+        #footer
+          p some footer content
