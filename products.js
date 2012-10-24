@@ -53,5 +53,6 @@ module.exports.delete = function(product) {
 }
 
 module.exports.insert = function(product) {
-  products.push(product);
+  product.id = products.push(product);
+  return product.id;
 }

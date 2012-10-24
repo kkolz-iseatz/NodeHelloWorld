@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var products_controller = require('./controllers/products_controller');
 
 app.configure(function() {
   app.use(express.logger());
@@ -14,51 +15,17 @@ app.configure('development', function () {
     showStack: true
   }));
 });
-app.configure('production', function () {
-  app.use(express.errorHandler( {
-    dumpExceptions: true,
-    showStack: true
-  }));
-});
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.set('view options', {layout: false});
 
-app.get('/', function(req, res) {
-  res.render("root");
-});
-
-var products = require('./products');
-
-app.get('/products', function(req, res) {
-  res.render('products/index', {products: products.all});
-});
-
-app.get('/products/:id', function(req, res) {
-  var product = products.find(req.params.id);
-  res.render('products/show', {product: product});
-});
-
-app.get('/products/:id/edit', function(req, res) {
-  var product = products.find(req.params.id);
-  res.render('products/edit', {product: product});
-});
-
-app.put('/products/:id', function(req, res) {
-  var id = req.params.id;
-  products.set(id, req.body.product);
-  res.redirect('products/'+id);
-});
-
-app.get('/products/new', function(req, res) {
-  res.render('products/new', {product: req.body && req.body.product || products.new})
-});
-
-app.post('/products', function(req, res) {
-  var id = products.insert(req.body.product);
-  res.redirect('products/'+id);
-})
-
+app.get('/', products_controller.root);
+app.get('/products', products_controller.index);
+app.get('/products/new', products_controller.new);
+app.get('/products/:id', products_controller.show);
+app.get('/products/:id/edit', products_controller.edit);
+app.put('/products/:id', products_controller.put);
+app.post('/products', products_controller.post);
 
 app.listen(4000);

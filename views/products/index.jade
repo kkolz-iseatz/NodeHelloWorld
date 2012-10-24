@@ -2,6 +2,8 @@ extends ../layout
 
 block content
   h1 Products:
-  - each product in products
-    include product
-  a(href='/products/new') New
+  #products-list
+    - each product in products
+      #product
+        include product
+    a(href='/products/new') New
