@@ -11,3 +11,7 @@ body {
 #footer {
   font-size: 12px;
 }
+
+a {
+  margin: 5px 5px;
+}

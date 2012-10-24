@@ -27,3 +27,31 @@ module.exports.find = function(id) {
   });
   return found;
 };
+
+module.exports.set = function(id, product) {
+  id = parseInt(id, 10);
+  product.id = id;
+  products[id - 1] = product;
+}
+
+module.exports.new = function() {
+  return {
+    name: '',
+    description: '',
+    price: 0
+  };
+}
+
+module.exports.delete = function(product) {
+  console.log(product);
+  if(_.contains(products, product)) {
+    delete products[product];
+  }
+  else {
+    throw new Error('Product not found');
+  }
+}
+
+module.exports.insert = function(product) {
+  products.push(product);
+}
